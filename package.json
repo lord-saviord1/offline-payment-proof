@@ -1,0 +1,20 @@
+{
+  "name": "offline-receipt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "jsqr": "^1.4.0",
+    "qrcode-generator": "^2.0.4",
+    "tweetnacl": "^1.0.3"
+  }
+}

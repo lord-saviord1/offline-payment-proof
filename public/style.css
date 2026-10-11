@@ -1,0 +1,18 @@
+:root{--ink:#101820;--mute:#5b6670;--line:#d5dadf;--bg:#f2f4f5;--card:#fff;--ok:#0b7a43;--bad:#c4161c;--warn:#a85d00}
+@media(prefers-color-scheme:dark){:root{--ink:#eef1f3;--mute:#9aa6b0;--line:#2c353d;--bg:#0d1217;--card:#161d24;--ok:#3ecf86;--bad:#ff6b6f;--warn:#f2a444}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.4rem;margin:12px 0 4px}h2{font-size:1rem;margin:0 0 10px}p{margin:0 0 10px;color:var(--mute)}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:14px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:10px 0 4px}
+input,select,textarea,button{font:inherit;color:inherit;border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--card);width:100%}
+textarea{font:.8rem/1.3 ui-monospace,Consolas,monospace;min-height:70px}
+button{width:auto;cursor:pointer;background:var(--ink);color:var(--bg);border-color:var(--ink);margin:10px 8px 0 0}
+button.ghost{background:none;color:var(--ink);border-color:var(--line)}
+:focus-visible{outline:3px solid #2a6df4;outline-offset:2px}
+.status{font-size:.85rem;color:var(--mute)}.nav a{color:var(--ink);margin-right:14px}
+#result{border-radius:10px;padding:22px 16px;margin-top:14px;border:2px solid var(--line);background:var(--card)}
+#result .big{font-size:2.1rem;font-weight:700;line-height:1.15}#result .amt{font-size:2.6rem;font-weight:700;font-variant-numeric:tabular-nums;margin:6px 0}
+#result.ok{border-color:var(--ok)}#result.ok .big{color:var(--ok)}#result.bad{border-color:var(--bad)}#result.bad .big{color:var(--bad)}#result.warn{border-color:var(--warn)}#result.warn .big{color:var(--warn)}
+#qr svg{width:240px;height:240px;background:#fff;display:block}video{width:100%;border-radius:8px;margin-top:10px;background:#000}
+ol{padding-left:0;list-style:none;margin:8px 0 0;font:.8rem/1.4 ui-monospace,Consolas,monospace}li{padding:5px 0;border-bottom:1px solid var(--line);word-break:break-all}

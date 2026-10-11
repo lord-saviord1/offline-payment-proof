@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bank simulator</title><link rel="stylesheet" href="style.css"></head>
+<body><main><div class="nav"><a href="bank.html">Bank simulator</a><a href="merchant.html">Merchant app</a></div>
+<h1>Bank simulator</h1><p>Plays the bank's side: signs a completed transfer so the merchant can verify it without a network.</p>
+<section><h2>Complete a transfer</h2>
+<label for="m">Merchant</label><select id="m"></select>
+<label for="a">Amount (₦)</label><input id="a" type="number" min="1" step="0.01" value="2500" inputmode="decimal">
+<label for="p">Payer account (last 4 digits shown on receipt)</label><input id="p" value="4821" inputmode="numeric">
+<button id="issue">Issue signed receipt</button><button id="forge" class="ghost" disabled>Make forged copy (amount ×10)</button>
+<p class="status" id="msg" role="status"></p></section>
+<section id="out" hidden><h2 id="cap">Receipt QR</h2><div id="qr"></div><label for="tok">Receipt code</label><textarea id="tok" readonly></textarea></section>
+</main><script src="lib/nacl-fast.min.js"></script><script src="lib/qrcode.js"></script><script src="npp.js"></script><script src="bank.js"></script></body></html>
