@@ -1,8 +1,9 @@
 // Bank simulator. In production the private key lives in the bank's HSM; here it is a file.
 const express = require('express'), helmet = require('helmet'), nacl = require('tweetnacl'), crypto = require('crypto');
 const R = require('./risk.js'), fs = require('fs'), path = require('path'), N = require('./public/npp.js');
-fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
-const KEYF = path.join(__dirname, 'data/signing.json'), TXF = path.join(__dirname, 'data/txs.json'), BOARDF = path.join(__dirname, 'data/board.json');
+const DATA = process.env.DATA_DIR || path.join(__dirname, 'data'); // point DATA_DIR at a persistent disk when hosting
+fs.mkdirSync(DATA, { recursive: true });
+const KEYF = path.join(DATA, 'signing.json'), TXF = path.join(DATA, 'txs.json'), BOARDF = path.join(DATA, 'board.json');
 const load = (f, d) => { try { return JSON.parse(fs.readFileSync(f)); } catch { return d; } };
 let key = load(KEYF, null);
 if (!key) { const kp = nacl.sign.keyPair(); key = { kid: 'ZB-' + Date.now().toString(36), pub: N.b64u.to(kp.publicKey), sec: N.b64u.to(kp.secretKey) }; fs.writeFileSync(KEYF, JSON.stringify(key)); }
@@ -22,9 +23,9 @@ const limit = max => (q, r, next) => {
 };
 
 const app = express();
+app.set('trust proxy', 1); // behind a host or tunnel, so rate limits see the real client address
 app.use(helmet({ contentSecurityPolicy: { directives: { upgradeInsecureRequests: null } } })); // keep plain-http LAN use working
 app.use(express.json({ limit: '1mb' }));
-app.get('/', (q, r) => r.redirect('/merchant.html'));
 app.get('/api/merchants', (q, r) => r.json(MERCHANTS));
 app.get('/api/pubkeys', (q, r) => r.json({ keys: { [key.kid]: key.pub } }));
 

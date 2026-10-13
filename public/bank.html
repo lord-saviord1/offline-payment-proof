@@ -1,6 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bank simulator</title><link rel="stylesheet" href="style.css"></head>
-<body><main><div class="nav"><a href="bank.html">Bank simulator</a><a href="merchant.html">Merchant app</a><a href="dashboard.html">Bank dashboard</a></div>
-<h1 id="h">Bank simulator</h1><p id="d">Plays the customer's bank channel: after the customer authorises a transfer, the bank signs a receipt the merchant can verify without a network. Open a merchant's payment link to pay it.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zenith Offline Proof: Pay</title><link rel="stylesheet" href="style.css"></head>
+<body><header class="top"><div class="in"><span class="brand">ZENITH <span>BANK</span></span><span class="tagline">Offline Proof</span></div></header><main><div class="nav"><a href="index.html">Home</a><a href="merchant.html">Merchant app</a><a href="bank.html">Customer pay page</a><a href="dashboard.html">Bank dashboard</a></div>
+<h1 id="h">Customer pay page</h1><p id="d">Plays the customer's bank channel: after the customer authorises a transfer, the bank signs a receipt the merchant can verify without a network. Open a merchant's payment link to pay it.</p>
 <section><h2>Complete a transfer</h2><p class="status" id="rq" hidden></p>
 <label for="m">Merchant</label><select id="m"></select>
 <label for="a">Amount (₦)</label><input id="a" type="number" min="1" step="0.01" value="2500" inputmode="decimal">
@@ -8,4 +8,4 @@
 <button id="issue">Issue signed receipt</button><button id="forge" class="ghost" disabled>Make forged copy (amount ×10)</button>
 <p class="status" id="msg" role="status"></p></section>
 <section id="out" hidden><h2 id="cap">Receipt QR</h2><div id="qr"></div><label for="tok">Receipt code</label><textarea id="tok" readonly></textarea></section>
-</main><script src="lib/nacl-fast.min.js"></script><script src="lib/qrcode.js"></script><script src="npp.js"></script><script src="bank.js"></script></body></html>
+</main><footer class="foot">Hackathon prototype. Not a live Zenith Bank channel. Signing key is a demo file; in production it lives in the bank\u2019s HSM.</footer><script src="lib/nacl-fast.min.js"></script><script src="lib/qrcode.js"></script><script src="npp.js"></script><script src="bank.js"></script></body></html>

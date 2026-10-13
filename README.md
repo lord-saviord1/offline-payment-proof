@@ -138,6 +138,3 @@ docs/                Demo script and deployment notes
 - Storage is JSON files and browser localStorage. Production: a database on the server, IndexedDB on the device.
 - Expiry uses the device clock. Request IDs are single-use regardless, and the bank reconciles every entry.
 - The fraud model is trained on synthetic data.
-
-
-QADRI X CIPHER

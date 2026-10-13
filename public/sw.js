@@ -1,6 +1,6 @@
 // Offline cache for the merchant app. Network first (so updates arrive when online), cache fallback (so it works with no signal).
 const C = 'zenith-tally-v2';
-const ASSETS = ['/merchant.html', '/merchant.js', '/npp.js', '/style.css', '/lib/nacl-fast.min.js', '/lib/jsQR.js', '/lib/qrcode.js'];
+const ASSETS = ['/index.html', '/merchant.html', '/merchant.js', '/npp.js', '/style.css', '/lib/nacl-fast.min.js', '/lib/jsQR.js', '/lib/qrcode.js'];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => Promise.allSettled(ASSETS.map(a => c.add(a))))); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {

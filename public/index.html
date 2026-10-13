@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zenith Offline Proof</title><link rel="stylesheet" href="style.css"></head>
+<body><header class="top"><div class="in"><span class="brand">ZENITH <span>BANK</span></span><span class="tagline">Offline Proof</span></div></header>
+<main>
+<div class="hero"><h1>Accept payments with confidence, even when the network is down.</h1>
+<p>A Zenith-signed payment proof the merchant can verify in under a second with no internet. Zenith limits the risk and reconciles every transaction when the network returns.</p>
+<a class="btn" href="merchant.html">Open merchant app</a><a class="btn ghost" href="dashboard.html">See the bank view</a></div>
+
+<section><h2>The problem</h2><p>A customer says they have paid. The merchant's POS has no network and cannot reach the bank. Release the goods and risk a fake or reused receipt, or turn away a genuine customer.</p></section>
+
+<div class="steps">
+<div class="step"><b>1. Ask</b>The merchant enters the amount. The app creates a payment request and shows a QR code. This works offline.</div>
+<div class="step"><b>2. Pay</b>The customer scans it and pays through a Zenith channel. Zenith signs a receipt for that exact request.</div>
+<div class="step"><b>3. Verify offline</b>The merchant scans the receipt. The app checks the signature, the request, the amount and any reuse, in milliseconds.</div>
+<div class="step"><b>4. Reconcile</b>When the merchant reconnects, the log syncs. Zenith confirms, recovers or flags every entry and scores the risk.</div>
+</div>
+
+<section><h2>Why it is safe</h2><ul class="plain">
+<li><b>Tally, not trust.</b> Like a split tally stick, the merchant holds one half (its request) and Zenith's signature is the other. They must match.</li>
+<li><b>Ed25519 signatures</b> mean an altered amount or a forged receipt fails instantly.</li>
+<li><b>Tamper-evident log.</b> Every entry is chained to the one before it, so edits and deletions are caught.</li>
+<li><b>Bounded risk.</b> Each device has an offline allowance, so the bank's exposure has a ceiling.</li>
+<li><b>Fraud scoring</b> with plain-language reasons for bank staff to review.</li></ul></section>
+
+<section><h2>Try it</h2><a class="btn" href="merchant.html">Merchant app</a><a class="btn ghost" href="bank.html">Customer pay page</a><a class="btn ghost" href="dashboard.html">Bank dashboard</a>
+<p class="status">The merchant gets an immediate cryptographic decision that Zenith issued this proof for this request. Final settlement is confirmed when connectivity returns.</p></section>
+</main>
+<footer class="foot">Hackathon prototype. Not a live Zenith Bank channel. Signing key is a demo file; in production it lives in the bank's HSM.</footer></body></html>
