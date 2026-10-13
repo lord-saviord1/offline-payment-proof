@@ -15,6 +15,25 @@ let log = []; for (let i = 0; i < 4; i++) log.push(N.append(log, now + i, 'TX' +
 assert.ok(N.verifyChain(log).ok);
 log[1].amt = 999999; assert.deepEqual(N.verifyChain(log), { ok: false, brokenAt: 1 });
 console.log('all tests passed');
+// Zenith Tally: the merchant's REQUEST entry is its half of the tally; the bank's receipt must fit it.
+const add = (l, t, tx, amt, res) => (l.push(N.append(l, t, tx, amt, res)), l);
+const dec = (tok, l, o = {}) => N.decide(tok, l, { keys, merchantId: 'M1', now, ...o }).status;
+let tl = add([], now, 'TX1', '250000', 'REQUEST');
+assert.equal(dec(t, tl), 'GENUINE');
+assert.equal(dec(t, []), 'UNKNOWN_TALLY');                                                    // real receipt, never requested here
+assert.equal(dec(t, add([], now, 'TX1', '100000', 'REQUEST')), 'AMOUNT_MISMATCH');           // paid a different amount than asked
+assert.equal(dec(N.forge(t), tl), 'INVALID_SIGNATURE');
+assert.equal(dec(t, tl, { merchantId: 'M2' }), 'WRONG_MERCHANT');
+assert.equal(dec(t, tl, { now: now + 5000 }), 'EXPIRED');
+assert.equal(dec(t, add([], now - 1000, 'TX1', '250000', 'REQUEST')), 'REQUEST_EXPIRED');
+assert.equal(N.openRequests(tl, now).length, 1);
+add(tl, now + 1, 'TX1', '250000', 'GENUINE');
+assert.equal(dec(t, tl), 'DUPLICATE');                                                       // same receipt scanned twice
+assert.equal(N.openRequests(tl, now + 2).length, 0);
+const sl = add([], now, 'TX1', '250000', 'REQUEST'); add(sl, now + 1, 'TX1', '250000', 'SETTLED');
+assert.equal(dec(t, sl), 'DUPLICATE');                                                       // already settled by the bank at sync
+assert.equal(N.verifyChain(tl).ok, true);
+console.log('tally tests passed');
 // Risk model on held-out simulated data (not the training set). Synthetic: shows the mechanism works, not real-world accuracy.
 const R = require('./risk.js'), r = R.rng(999), N2 = 1000;
 const flag = x => R.M.score(x) >= R.M.review;

@@ -55,6 +55,23 @@
     else prev = log[i].h;
     return { ok: true };
   }
-  root.NPP = { b64u, sign, parse, verify, forge, append, verifyChain };
+
+  // Zenith Tally (like a split tally stick). The merchant keeps one half: a REQUEST entry in its own chained log,
+  // made with a random tx. The bank's signed receipt for that same tx is the other half. A receipt is only accepted
+  // if it fits a request this device made, for the amount asked, and has not been used before.
+  // The signed receipt format is unchanged; only who chooses `tx` has moved to the merchant.
+  const REQ_TTL = 900; // a request stays open for 15 minutes
+  const closed = log => new Set(log.filter(e => e.res === 'GENUINE' || e.res === 'SETTLED').map(e => e.tx));
+  const openRequests = (log, now) => { const c = closed(log); return log.filter(e => e.res === 'REQUEST' && !c.has(e.tx) && now - e.t <= REQ_TTL); };
+  function decide(token, log, o) {
+    const x = parse(token), req = x && log.find(e => e.res === 'REQUEST' && e.tx === x.r.tx);
+    const r = verify(token, { ...o, expectedAmt: req ? +req.amt : null });
+    if (r.status !== 'GENUINE') return r;
+    if (!req) return { status: 'UNKNOWN_TALLY', receipt: r.receipt };
+    if (closed(log).has(req.tx)) return { status: 'DUPLICATE', receipt: r.receipt };
+    if (o.now - req.t > REQ_TTL) return { status: 'REQUEST_EXPIRED', receipt: r.receipt };
+    return r;
+  }
+  root.NPP = { b64u, sign, parse, verify, forge, append, verifyChain, decide, openRequests, REQ_TTL };
   if (typeof module !== 'undefined') module.exports = root.NPP;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,13 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Merchant receipt check</title><link rel="stylesheet" href="style.css"></head>
-<body><main><div class="nav"><a href="bank.html">Bank simulator</a><a href="merchant.html">Merchant app</a></div>
-<h1>Check a payment receipt</h1><p>Works with no internet once this page has loaded and bank keys are stored.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Merchant receipt check</title><link rel="stylesheet" href="style.css">
+<style>.chk{list-style:none;padding:0;margin:.6rem 0}.chk li{padding:.15rem 0}</style></head>
+<body><main><div class="nav"><a href="bank.html">Bank simulator</a><a href="merchant.html">Merchant app</a><a href="dashboard.html">Bank dashboard</a></div>
+<h1>Take a payment</h1><p>Works with no internet once this page has loaded and bank keys are stored.</p>
 <section><h2>This shop</h2><label for="m">Merchant</label><select id="m"></select>
-<label for="exp">Amount you expect (₦, optional)</label><input id="exp" type="number" min="0" step="0.01" inputmode="decimal">
-<button id="upd" class="ghost">Update bank keys</button><p class="status" id="st" role="status"></p></section>
-<section><h2>Scan the customer's receipt</h2><button id="scan">Scan QR code</button><button id="stop" class="ghost">Stop camera</button><video id="cam" playsinline muted hidden></video>
+<button id="upd" class="ghost">Update bank keys</button><p class="status" id="st" role="status"></p><p class="status" id="ct" role="status"></p></section>
+<section><h2>1. Ask for a payment</h2><label for="ra">Amount (₦)</label><input id="ra" type="number" min="1" step="0.01" value="2500" inputmode="decimal">
+<button id="req">Create payment request</button><p class="status" id="rm" role="status"></p>
+<div id="rbox" hidden><div id="rqr"></div><p id="rcap"></p><label for="rlink">Payment link</label><textarea id="rlink" readonly></textarea></div></section>
+<section><h2>2. Check the customer's receipt</h2><button id="scan">Scan QR code</button><button id="stop" class="ghost">Stop camera</button><video id="cam" playsinline muted hidden></video>
 <label for="tok">Or paste the receipt code</label><textarea id="tok"></textarea><button id="chk">Check receipt</button><p class="status" id="cm" role="status"></p></section>
 <div id="result" hidden aria-live="polite"></div>
-<section><h2>Receipt log on this device</h2><p>Each entry is chained to the one before, so a changed or deleted entry is detected.</p>
+<section><h2>Log on this device</h2><p>Each entry is chained to the one before, so a changed or deleted entry is detected.</p>
 <button id="vc" class="ghost">Verify log</button><button id="sync" class="ghost">Send log to bank</button><button id="tam" class="ghost">Demo: alter an entry</button><button id="rst" class="ghost">Clear log</button>
 <p class="status" id="lm" role="status"></p><ol id="log"></ol></section></main>
-<script src="lib/nacl-fast.min.js"></script><script src="lib/jsQR.js"></script><script src="npp.js"></script><script src="merchant.js"></script></body></html>
+<script src="lib/nacl-fast.min.js"></script><script src="lib/jsQR.js"></script><script src="lib/qrcode.js"></script><script src="npp.js"></script><script src="merchant.js"></script></body></html>

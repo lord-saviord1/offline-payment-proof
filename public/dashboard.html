@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bank dashboard</title><link rel="stylesheet" href="style.css">
+<style>.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin:1rem 0}.card{border:1px solid #ccc;border-radius:8px;padding:.7rem}.card b{display:block;font-size:1.3rem}.card small{color:#666}
+.mrow{border-top:1px solid #ddd;padding:.6rem 0}.tag{display:inline-block;padding:.1rem .5rem;border-radius:99px;font-size:.85rem;color:#fff}.tag.ok{background:#2e7d32}.tag.warn{background:#b26a00}.tag.bad{background:#c62828}</style></head>
+<body><main><div class="nav"><a href="bank.html">Bank simulator</a><a href="merchant.html">Merchant app</a><a href="dashboard.html">Bank dashboard</a></div>
+<h1>Reconciliation dashboard</h1><p>What the bank sees once offline merchants reconnect and send their logs.</p>
+<section><label for="key">Operator key</label><input id="key" type="password" autocomplete="off"><button id="go">Load</button><p class="status" id="msg" role="status"></p></section>
+<div id="cards" class="cards"></div>
+<section><h2>Merchants</h2><div id="mt"><p>Nothing loaded yet.</p></div></section>
+<section><h2>Recent synchronisations</h2><ol id="ev"></ol></section></main><script src="dashboard.js"></script></body></html>
